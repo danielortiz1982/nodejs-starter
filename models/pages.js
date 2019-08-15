@@ -9,7 +9,13 @@ const Pages = mongoose.model('Pages', {
     content: {
         type: String,
         trim: true
+    },
+    keywords: {
+        type: Array
+    },
+    featuredImg: {
+        type: String,
+        trim: true
     }
 })
-
 module.exports = Pages

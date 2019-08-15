@@ -1,82 +1,24 @@
-const express   = require('express')
-const chalk     = require('chalk')
-const path      = require('path')
-const fs        = require('fs')
-const server    = express()
-const PORT      = 4500
+const express         = require('express')
+const chalk           = require('chalk')
+const path            = require('path')
+const server          = express()
+const PORT            = process.env.port || 4500
+const PageRouter      = require('./router/pages-router')
+const UserRouter      = require('./router/users-router')
+const ServerMessage   = `Nodejs starter project is running on localhost:${PORT}`
+const db              = require('./utilities/db-connect')
+const pub             = path.join(__dirname, '/public/')
 
-const ServerMessage = `Nodejs starter project is running on localhost:${PORT}`
-require('./utilities/db-connect')
-
-const Pages = require('./models/pages')
-
-const pub = path.join(__dirname, '/public/templates')
 server.use(express.static(pub))
 server.use(express.json())
 
-/////////////////////////////////////////////////////////////////   Template API   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////  API Router  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////// Post new page
+// Pages API Router
+server.use(PageRouter)
 
-server.post('/api/v1/pages', async (req, res) => {
-  const page = new Pages(req.body)
-  try{
-    await page.save()
-    res.status(201).send(page)  
-  }catch(e){
-    res.status(400).send(e)
-  }
-})
-
-////// Get All Pages
-
-server.get('/api/v1/pages', async (req, res) => {
-  try{
-    const pages = await Pages.find()
-    res.status(200).send(pages)
-  }catch(e){
-    res.status(400).send(e)
-  }
-})
-
-
-server.get('/api/v1/pages/:id', async (req, res) => {
-  const _id = req.params.id
-
-  try{
-    const page = await Pages.findById(_id)
-    res.status(200).send(page)
-
-  }catch(e){
-    res.status(400).send(e)
-  }
-
-})
-
-server.delete('/api/v1/pages/:id', async (req, res) => {
-  const _id = req.params.id
-
-  try{
-    const page = await Pages.findByIdAndRemove(_id)
-    res.status(201).send(page)
-  }catch(e){
-    res.status(400).send(e)
-  }
-
-})
-
-server.put('/api/v1/pages/:id', async (req, res) => {
-
-  const _id = req.params.id
-
-  try{
-    const page = await Pages.findByIdAndUpdate(_id, req.body)
-    res.status(201).send(page)
-  }catch(e){
-    res.status(400).send(e)
-  }
-
-})
+// Users API Router
+server.use(UserRouter)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
