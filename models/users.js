@@ -51,7 +51,65 @@ const User = mongoose.model('User', {
                 throw new Error('Password can not contain password')
             }
         }
-    }
+    },
+    address: [
+        {
+            primaryAddress: {
+                type: String,
+                require: true,
+                trim: true,
+                lowercase: true,
+                minlength: 3
+            },
+            primaryCity: {
+                type: String,
+                require: true,
+                trim: true,
+                minlength: 2
+            },
+            primaryState: {
+                type: String,
+                uppercase: true,
+                maxlength: 2,
+                minlength: 2,
+                trim: true,
+                require: true
+            },
+            primaryPostalCode: {
+                type: Number,
+                maxlength: 5,
+                minlength: 5,
+                trim: true,
+                require: true
+            }
+        },
+        {
+            secondaryAddress: {
+                type: String,
+                trim: true,
+                lowercase: true,
+                minlength: 3
+            },
+            secondaryCity: {
+                type: String,
+                trim: true,
+                minlength: 2
+            },
+            secondaryState: {
+                type: String,
+                uppercase: true,
+                maxlength: 2,
+                minlength: 2,
+                trim: true
+            },
+            secondaryPostalCode: {
+                type: Number,
+                maxlength: 5,
+                minlength: 5,
+                trim: true
+            }
+        }
+    ]
 })
 
 module.exports = User
