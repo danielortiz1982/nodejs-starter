@@ -52,22 +52,23 @@ const User = mongoose.model('User', {
             }
         }
     },
-    address: [
+    // TODO refactor the addreses array to be dynamic need to be able to push items into it.
+    addresses: [
         {
-            primaryAddress: {
+            Address: {
                 type: String,
                 require: true,
                 trim: true,
                 lowercase: true,
                 minlength: 3
             },
-            primaryCity: {
+            City: {
                 type: String,
                 require: true,
                 trim: true,
                 minlength: 2
             },
-            primaryState: {
+            State: {
                 type: String,
                 uppercase: true,
                 maxlength: 2,
@@ -75,37 +76,47 @@ const User = mongoose.model('User', {
                 trim: true,
                 require: true
             },
-            primaryPostalCode: {
+            PostalCode: {
                 type: Number,
                 maxlength: 5,
                 minlength: 5,
                 trim: true,
                 require: true
+            },
+            AddressType: {
+                type: String,
+                require: true,
+                trim: true
             }
         },
         {
-            secondaryAddress: {
+            Address: {
                 type: String,
                 trim: true,
                 lowercase: true,
                 minlength: 3
             },
-            secondaryCity: {
+            City: {
                 type: String,
                 trim: true,
                 minlength: 2
             },
-            secondaryState: {
+            State: {
                 type: String,
                 uppercase: true,
                 maxlength: 2,
                 minlength: 2,
                 trim: true
             },
-            secondaryPostalCode: {
+            PostalCode: {
                 type: Number,
                 maxlength: 5,
                 minlength: 5,
+                trim: true
+            },
+            AddressType: {
+                type: String,
+                require: true,
                 trim: true
             }
         }
