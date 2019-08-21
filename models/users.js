@@ -51,7 +51,76 @@ const User = mongoose.model('User', {
                 throw new Error('Password can not contain password')
             }
         }
-    }
+    },
+    // TODO refactor the addreses array to be dynamic need to be able to push items into it.
+    addresses: [
+        {
+            Address: {
+                type: String,
+                require: true,
+                trim: true,
+                lowercase: true,
+                minlength: 3
+            },
+            City: {
+                type: String,
+                require: true,
+                trim: true,
+                minlength: 2
+            },
+            State: {
+                type: String,
+                uppercase: true,
+                maxlength: 2,
+                minlength: 2,
+                trim: true,
+                require: true
+            },
+            PostalCode: {
+                type: Number,
+                maxlength: 5,
+                minlength: 5,
+                trim: true,
+                require: true
+            },
+            AddressType: {
+                type: String,
+                require: true,
+                trim: true
+            }
+        },
+        {
+            Address: {
+                type: String,
+                trim: true,
+                lowercase: true,
+                minlength: 3
+            },
+            City: {
+                type: String,
+                trim: true,
+                minlength: 2
+            },
+            State: {
+                type: String,
+                uppercase: true,
+                maxlength: 2,
+                minlength: 2,
+                trim: true
+            },
+            PostalCode: {
+                type: Number,
+                maxlength: 5,
+                minlength: 5,
+                trim: true
+            },
+            AddressType: {
+                type: String,
+                require: true,
+                trim: true
+            }
+        }
+    ]
 })
 
 module.exports = User
