@@ -1,15 +1,24 @@
 const express   = require('express')
+const bcrypt = require('bcrypt')
+const saltRounds = 7
 UserRouter      = new express.Router()
 const UserModel = require('../models/users')
 
-UserRouter.post('/api/v1/users', async (req, res) => {
+UserRouter.post('/api/v1/users', (req, res) => {
     const user = new UserModel(req.body)
-    try{
-        await user.save()
-        res.status(201).send(user)
-    }catch(e){
-        res.status(400).send(e)
-    }
+    let userPassword = user.password
+    
+    bcrypt.hash(userPassword, saltRounds, async (error, hash) => {
+        
+        user.password = hash
+        
+        try{
+            await user.save()
+            res.status(201).send(user)
+        }catch(e){
+            res.status(400).send(e)
+        }
+    })
 })
 
 UserRouter.get('/api/v1/users', async (req, res) => {
