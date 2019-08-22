@@ -1,0 +1,24 @@
+{
+    "age":43,
+    "firstName":"Abby",
+    "lastName":"smith",
+    "userName":"asmith89",
+    "email":"abbysmith76@gmail.com",
+    "password":"SunDance1234",
+    "addresses":[
+        {
+            "Address":"12345 main st 5d",
+            "City":"Far rockaway",
+            "State":"NY",
+            "PostalCode":"11691",
+            "AddressType":"home"
+        },
+        {
+            "Address":"67890 back way 3n",
+            "City":"New York",
+            "State":"NY",
+            "PostalCode":"10012",
+            "AddressType":"Home"
+        }
+    ]
+}
