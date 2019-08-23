@@ -41,7 +41,6 @@ const User = mongoose.model('User', {
         }
     },
     password: {
-        // TODO need to complete the hashing for plain text password.
         type: String,
         trim: true,
         require: true,
@@ -52,7 +51,6 @@ const User = mongoose.model('User', {
             }
         }
     },
-    // TODO refactor the addreses array to be dynamic need to be able to push items into it.
     addresses: [
         {
             Address: {
