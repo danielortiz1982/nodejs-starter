@@ -86,7 +86,8 @@ const storage = multer.diskStorage({
 
 UserRouter.post('/api/v1/users/avatar', upload.single('upload'), (req, res) => {
 
-    res.send('user img sent!')
+    console.log(req.file.filename)
+    res.send(JSON.parse(null, req))
 
 })
 
