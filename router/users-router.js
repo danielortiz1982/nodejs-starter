@@ -59,7 +59,6 @@ UserRouter.put('/api/v1/users/:id', async (req, res) => {
     }
 })
 
-// TODO Clean up image upload and store path to image in user document. 
 // TODO Clean up image upload size and type.
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -73,17 +72,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-UserRouter.post('/api/v1/users/avatar', upload.single('upload'), (req, res) => {
-    //console.log(req.file.filename)
-    //console.log(req.file.destination);
+UserRouter.put('/api/v1/users/avatar/:id', upload.single('upload'), (req, res) => {
 
     const fileName = req.file.filename
     const fileDestination = req.file.destination
     const avatarImage = `${fileDestination}/${fileName}` 
-
-    console.log(avatarImage)
-
-    res.send('sent')
+    const uploadImg = {avatarImage}
+    const _id = req.params.id
+    const updateUser = UserModel.findByIdAndUpdate(_id, uploadImg, {new: true, runValidators: true})
+    updateUser.then(result => res.send(result)).catch(err => console.log(err))
+    
 })
 
 module.exports = UserRouter

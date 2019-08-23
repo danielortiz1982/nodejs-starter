@@ -118,7 +118,11 @@ const User = mongoose.model('User', {
                 trim: true
             }
         }
-    ]
+    ],
+    avatarImage: {
+        type: String,
+        trim: true
+    }
 })
 
 module.exports = User
