@@ -1,4 +1,5 @@
 const express   = require('express')
+const multer    = require('multer')
 const bcrypt = require('bcrypt')
 const saltRounds = 7
 UserRouter      = new express.Router()
@@ -60,7 +61,12 @@ UserRouter.put('/api/v1/users/:id', async (req, res) => {
     }
 })
 
+const upload = multer({
+    dest: 'public/images/avatar'
+})
+
+UserRouter.post('/api/v1/users/avatar', upload.single('upload'), (req, res) => {
+    res.send('img sent!')
+})
+
 module.exports = UserRouter
-
-
-
