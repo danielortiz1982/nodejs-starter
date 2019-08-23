@@ -9,11 +9,8 @@ const UserModel = require('../models/users')
 UserRouter.post('/api/v1/users', (req, res) => {
     const user = new UserModel(req.body)
     let userPassword = user.password
-    
     bcrypt.hash(userPassword, saltRounds, async (error, hash) => {
-        
         user.password = hash
-        
         try{
             await user.save()
             res.status(201).send(user)
@@ -62,24 +59,34 @@ UserRouter.put('/api/v1/users/:id', async (req, res) => {
     }
 })
 
-const upload = multer({
-    dest: 'public/images/avatar',
-    limits: {
-        fileSize: 1000000
+
+// TODO Clean up image upload and store path to image in user document. 
+
+const storage = multer.diskStorage({
+
+    destination: (req, file, cb) => {
+
+      cb(null, 'public/images/avatar')
+    },
+
+    filename:  (req, file, cb) => {
+        
+        let fileExt = file.mimetype.split('/')
+
+        console.log(fileExt[1])
+
+      cb(null, file.fieldname + '-' + Date.now() + '.' + fileExt[1])
+
     }
-})
+
+  })
+  
+  const upload = multer({ storage })
+
 
 UserRouter.post('/api/v1/users/avatar', upload.single('upload'), (req, res) => {
 
-    console.log(req.file)
-
-    fileType = req.file.originalname
-
-    const sample = fileType.split('.')
-
-    //console.log(sample[1])
-
-    res.send('img sent!')
+    res.send('user img sent!')
 
 })
 
