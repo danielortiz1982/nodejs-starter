@@ -74,8 +74,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 UserRouter.post('/api/v1/users/avatar', upload.single('upload'), (req, res) => {
-    console.log(req.file.filename)
-    res.send(JSON.parse(null, req))
+    //console.log(req.file.filename)
+    //console.log(req.file.destination);
+
+    const fileName = req.file.filename
+    const fileDestination = req.file.destination
+    const avatarImage = `${fileDestination}/${fileName}` 
+
+    console.log(avatarImage)
+
+    res.send('sent')
 })
 
 module.exports = UserRouter
