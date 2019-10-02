@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles/css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1 class="header">Nodejs and MongoDB Starter Project.</h1>
+        <main class="main">
+            <nav class="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a target="blank" href="/api/v1/users/">User API</a></li>
+                    <li><a href="/sign-up">Sign up</a></li>
+                    <li><a href="/users">Users</a></li>
+                </ul>
+            </nav>
+
+            <section class="main-content">
+                <h2>Users</h2>
+                <div class="content">
+                    <div id="users"></div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <h5>Nodejs & MongoDB Starter</h5>
+        </footer>
+    </div>
+    <script>
+        const usersEndpoint = '/api/v1/users/'
+        const userContent = document.getElementById('users')
+
+        const getUsers = async () => {
+
+            const response = await fetch(usersEndpoint)
+            const users = await response.json();
+
+            users.forEach((element, index)=>{
+
+                const user = document.createElement('div')
+
+                const userFirstName = document.createElement('p')
+                const userFirstNameText = document.createTextNode(element.firstName)
+                userFirstName.appendChild(userFirstNameText)
+                user.appendChild(userFirstName)
+
+                const userLastName = document.createElement('p')
+                const userLastNameText = document.createTextNode(element.lastName)
+                userLastName.appendChild(userLastNameText)
+                user.appendChild(userLastName)
+
+                const userAge = document.createElement('p')
+                const userAgeText = document.createTextNode(element.age)
+                userAge.appendChild(userAgeText)
+                user.appendChild(userAge)
+
+                const userEmail = document.createElement('p')
+                const userEmailText = document.createTextNode(element.email)
+                userEmail.appendChild(userEmailText)
+                user.appendChild(userEmail)
+
+                const userRemoveButton = document.createElement('button')
+                userRemoveButton.dataset.id = element._id
+                const userRemoveButtonText = document.createTextNode(`Remove`)
+                userRemoveButton.appendChild(userRemoveButtonText)
+                user.appendChild(userRemoveButton)
+
+                user.id = element._id
+                user.setAttribute("class", `user-component`)
+                userContent.appendChild(user)
+
+            })
+        }
+
+        userContent.addEventListener('click', async (e)=>{
+
+            if(e.target && e.target.matches('button')){
+
+                userContent.removeChild(e.path[1])
+                userID = e.path[0].dataset.id
+                const url = `/api/v1/users/${userID}`
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'DELETE', // or 'PUT'
+                        headers: {
+                        'Content-Type': 'application/json'
+                        }
+                })
+                    const json = await response.json();
+                } catch (error) {
+                    console.error('Error:', error)
+                }
+
+
+            }
+        })
+
+        getUsers()
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

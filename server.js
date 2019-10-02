@@ -7,7 +7,7 @@ const PageRouter      = require('./router/pages-router')
 const UserRouter      = require('./router/users-router')
 const ServerMessage   = `Nodejs starter project is running on localhost:${PORT}`
 const db              = require('./utilities/db-connect')
-const pub             = path.join(__dirname, '/public/')
+const pub             = `${__dirname}/public/`
 
 server.use(express.static(pub))
 server.use(express.json())
@@ -24,6 +24,14 @@ server.use(UserRouter)
 
 server.get('/', (req, res)=>{
   res.status(200).sendFile('index.html')
+})
+
+server.get('/sign-up', (req, res)=>{
+  res.status(200).sendFile(`${pub}templates/sign-up.html`)
+})
+
+server.get('/users', (req, res)=>{
+  res.status(200).sendFile(`${pub}templates/users.html`)
 })
 
 server.listen(PORT, ()=>{

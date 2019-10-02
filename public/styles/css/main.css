@@ -43,6 +43,48 @@ a:hover{
     background-color: #333333;
     color: #ffffff;
 }
+label{
+    text-transform: capitalize;
+    padding: 0;
+    margin: 0;
+}
+input{
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+}
+button{
+    padding: 10px 25px;
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+}
+.main-content{
+    margin: 20px 0;
+}
+.form-box{
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    padding: 3em;
+    background-color: #ffffff;
+}
+#sign-up-form{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 45% 45%;
+    align-items: center;
+}
+#message{
+    display: block;
+    transition: 1s;
+    opacity: 0;
+}
+.form-component{
+    margin: 0 auto;
+    width: 90%;
+}
 footer{
     width: 100%;
     border-top: solid 1px #333333;

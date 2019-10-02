@@ -11,11 +11,32 @@ UserRouter.post('/api/v1/users', (req, res) => {
     let userPassword = user.password
     bcrypt.hash(userPassword, saltRounds, async (error, hash) => {
         user.password = hash
-        try{
+
+        const userValidationObj = {
+            email: user.email
+        }
+
+        const userEmailValidation = await UserModel.find(userValidationObj)
+        const userEmailcondition = userEmailValidation.length
+
+        if(!userEmailcondition){
             await user.save()
-            res.status(201).send(user)
-        }catch(e){
-            res.status(400).send(e)
+            res
+                .status(201)
+                .send({
+                    message: 'Success! New User Added',
+                    status: 201,
+                    user
+                })
+                .end()
+        }else{
+            res
+                .status(400)
+                .send({
+                    message: 'user is already registered.',
+                    status: 400
+                })
+                .end()
         }
     })
 })

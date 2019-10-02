@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles/css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1 class="header">Nodejs and MongoDB Starter Project.</h1>
+        <main class="main">
+            <nav class="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a target="blank" href="/api/v1/users/">User API</a></li>
+                    <li><a href="/sign-up">Sign up</a></li>
+                    <li><a href="/users">Users</a></li>
+                </ul>
+            </nav>
+
+            <section class="main-content">
+                <h2>Sign Up</h2>
+                <div class="content">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, perferendis modi tempore vel error quas delectus tenetur, aut, dolor totam consequatur consequuntur fugiat voluptatem. Quo similique sequi non voluptates doloribus! Aperiam vero deserunt ratione dicta ipsum quae quisquam aliquid! Sed recusandae in fugit debitis dolorum praesentium rerum nisi nemo earum eum, beatae quas suscipit, facilis error magnam est placeat aliquid maxime similique temporibus. Odit, similique voluptate, est quibusdam vero atque ipsa enim animi sequi perspiciatis temporibus laudantium natus modi ratione maxime. Quis, nobis, eum fuga ex ducimus in sapiente modi ipsam ullam temporibus velit placeat, eligendi obcaecati facere labore animi? Aliquid maiores laboriosam laudantium nisi voluptates saepe dolores beatae porro ipsam nesciunt. Modi, alias provident. Adipisci cum doloribus sapiente, accusantium saepe quibusdam excepturi, neque veniam quae laudantium tenetur vero reprehenderit officia nostrum eius quis aut itaque et officiis animi corrupti illo. Enim consequatur optio accusantium dicta veniam voluptatem eaque commodi?
+                    </p>
+                    <div class="form-box">
+                        <form id="sign-up-form">
+                            <div class="form-component">
+                                <label>first name</label>
+                                <p><input placeholder="First Name" type="text" id="fname" name="fname"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>last name</label>
+                                <p><input placeholder="Last Name" type="text" id="lname" name="lname"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>age</label>
+                                <p><input placeholder="Age" type="number" id="age" name="age"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>phone</label>
+                                <p><input placeholder="Phone Numer" type="tel" id="phone" name="phone"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>email</label>
+                                <p><input placeholder="Email" type="email" id="email" name="email"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>password</label>
+                                <p><input placeholder="Password" type="password" id="password" name="password"></p>
+                            </div>
+
+                            <div class="form-component">
+                                    <button id="userSent">Add User</button>
+                                    <p id="message"></p>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <h5>Nodejs & MongoDB Starter</h5>
+        </footer>
+    </div>
+    <script>
+        const form = document.getElementById('sign-up-form')
+        const payload = {}
+        const btn = document.getElementById('userSent')
+        
+        btn.addEventListener('click', async (e)=>{
+            e.preventDefault()
+            payload.firstName = document.getElementById('fname').value
+            payload.lastName = document.getElementById('lname').value
+            payload.age = document.getElementById('age').value
+            payload.phone = document.getElementById('phone').value
+            payload.email = document.getElementById('email').value
+            payload.password = document.getElementById('password').value
+            const url = '/api/v1/users/'
+            const data = payload
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(data), // data can be `string` or {object}!
+                    headers: {
+                    'Content-Type': 'application/json'
+                    }
+                });
+                const json = await response.json();
+
+                const message = document.getElementById('message')
+
+                message.style.opacity = 1
+
+                const responseMessage = document.createTextNode(json.message)
+
+                const serverMessage = document.createElement('div')
+
+                serverMessage.id = "server-message"
+
+
+                serverMessage.appendChild(responseMessage)
+                
+
+                
+
+                
+
+                if(json.status === 201){
+                    message.style.color = 'green'
+                    message.appendChild(serverMessage)
+                    setTimeout(()=>{
+                        message.style.opacity = 0
+                        message.removeChild(serverMessage)
+                    }, 10000)
+                }else{
+                    message.style.color = 'red'
+                    message.appendChild(serverMessage)
+                    setTimeout(()=>{
+                        message.style.opacity = 0
+                        message.removeChild(serverMessage)
+                    }, 10000)
+                }
+                
+
+                
+                } catch (error) {
+                console.error('Error:', error)
+            }
+            form.reset()
+        })
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
