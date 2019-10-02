@@ -93,48 +93,36 @@
                     headers: {
                     'Content-Type': 'application/json'
                     }
-                });
+                })
+
                 const json = await response.json();
-
                 const message = document.getElementById('message')
-
                 message.style.opacity = 1
-
                 const responseMessage = document.createTextNode(json.message)
-
                 const serverMessage = document.createElement('div')
-
                 serverMessage.id = "server-message"
 
-
                 serverMessage.appendChild(responseMessage)
-                
+    
+                    if(json.status === 201){
+                        message.style.color = 'green'
+                        message.appendChild(serverMessage)
+                        setTimeout(()=>{
+                            message.style.opacity = 0
+                            message.removeChild(serverMessage)
+                        }, 10000)
+                    }else{
+                        message.style.color = 'red'
+                        message.appendChild(serverMessage)
+                        setTimeout(()=>{
+                            message.style.opacity = 0
+                            message.removeChild(serverMessage)
+                        }, 10000)
+                    }
 
-                
-
-                
-
-                if(json.status === 201){
-                    message.style.color = 'green'
-                    message.appendChild(serverMessage)
-                    setTimeout(()=>{
-                        message.style.opacity = 0
-                        message.removeChild(serverMessage)
-                    }, 10000)
-                }else{
-                    message.style.color = 'red'
-                    message.appendChild(serverMessage)
-                    setTimeout(()=>{
-                        message.style.opacity = 0
-                        message.removeChild(serverMessage)
-                    }, 10000)
-                }
-                
-
-                
                 } catch (error) {
-                console.error('Error:', error)
-            }
+                    console.error('Error:', error)
+                }
             form.reset()
         })
     </script>
