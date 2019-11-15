@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../styles/css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1 class="header">Nodejs and MongoDB Starter Project.</h1>
+        <main class="main">
+            <nav class="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a target="blank" href="/api/v1/users/">User API</a></li>
+                    <li><a href="/sign-up">Sign up</a></li>
+                    <li><a href="/users">Users</a></li>
+                </ul>
+            </nav>
+            <h5><a href="/users">Return to users</a></h5>
+            <section class="main-content">
+                <h2 id="user-title"></h2>
+                <div id="profile-img"><img id="user-profile"></div>
+                <div class="content">
+                    <div id="user-wrapper">
+                        <div class="user-input" id="user-id"></div>
+                        <div class="user-input" id="user-age"></div>
+                        <div class="user-input" id="user-phone"></div>
+                        <div class="user-input" id="user-email"></div>
+                        <div class="user-input" id="street-address"></div>
+                        <div class="user-input" id="primary-city"></div>
+                        <div class="user-input" id="primary-state"></div>
+                        <div class="user-input" id="primary-postal-code"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <h5>Nodejs & MongoDB Starter</h5>
+        </footer>
+    </div>
+    <script>
+        
+        const userPathName = window.location.pathname
+        userID = userPathName.split('/')
+        const userEndpoint = `/api/v1/users/${userID[2]}`
+
+        const getUser = async () =>{
+
+            const response = await fetch(userEndpoint)
+            const userData = await response.json()
+
+            console.log(userData.addresses[0])
+
+            const userWrapper = window.document.getElementById('user-wrapper')
+            const userTitle = window.document.getElementById('user-title')
+            const userEmail = window.document.getElementById('user-email')
+            const userAge = window.document.getElementById('user-age')
+            const userPhone = window.document.getElementById('user-phone')
+            const userid = window.document.getElementById('user-id')
+            const streetAddress = window.document.getElementById('street-address')
+            const primaryCity = window.document.getElementById('primary-city')
+            const primaryState = window.document.getElementById('primary-state')
+            const primaryPostalCode = window.document.getElementById('primary-postal-code')
+            const userProfile = window.document.getElementById('user-profile')
+
+             userTitle.innerHTML = `${userData.firstName} ${userData.lastName}`
+             userEmail.innerHTML = `<label>Email:</label> ${userData.email}`
+             userAge.innerHTML = `<label>Age:</label> ${userData.age}`
+             userPhone.innerHTML = `<label>Phone:</label> ${userData.phone}`
+             userid.innerHTML = `<label>User ID:</label> ${userData._id}`
+             streetAddress.innerHTML = `<label>Address:</label> ${userData.addresses[0].primaryAddress}`
+             primaryCity.innerHTML = `<label>City:</label> ${userData.addresses[0].primaryCity}`
+             primaryState.innerHTML = `<label>State:</label> ${userData.addresses[0].primaryState}`
+             primaryPostalCode.innerHTML = `<label>Postal Code:</label> ${userData.addresses[0].primaryPostalCode}`
+
+             userProfile.setAttribute('src', userData.avatarImage)
+             
+        }
+        getUser()
+    </script>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

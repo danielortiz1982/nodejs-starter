@@ -91,6 +91,10 @@ server.get('/users', (req, res)=>{
   res.status(200).sendFile(`${pub}templates/users.html`)
 })
 
+server.get('/user/:id', (req, res)=>{
+  res.status(200).sendFile(`${pub}templates/user.html`)
+})
+
 server.get('/sample', (req, res)=>{
 
   const data = [

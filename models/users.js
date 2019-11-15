@@ -140,7 +140,8 @@ const User = mongoose.model('User', {
     },
     avatarImage: {
         type: String,
-        trim: true
+        trim: true,
+        default: "../images/avatar/dummy-img.jpg"
     }
 })
 

@@ -100,3 +100,44 @@ footer{
     text-align: center;
     color: #333333;
 }
+
+#user-wrapper{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 25% 25% 25% 25%;
+    align-items: center;
+}
+
+.user-input{
+    padding: 15px;
+    text-align: left;
+}
+
+.user-input label{
+    display: block;
+    font-weight: bolder;
+    text-decoration: underline;
+    color: orangered;
+    padding: 10px 0
+}
+
+#user-title{
+    display: block;
+    padding: 15px;
+    margin: 15px;
+    text-align: center;
+    font-size: 32px;
+    text-decoration: underline;
+}
+
+#profile-img{
+    width: 150px;
+    display: block;
+    padding: 15px;
+    margin: 15px auto;
+}
+#profile-img img{
+    width: 100%;
+    height: auto;
+    display: block;
+}

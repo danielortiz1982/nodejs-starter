@@ -70,6 +70,16 @@
                 userRemoveButton.appendChild(userRemoveButtonText)
                 user.appendChild(userRemoveButton)
 
+                const viewUserLink = document.createElement('a')
+
+                const viewUserLinkTextNode = document.createTextNode('view')
+
+                viewUserLink.appendChild(viewUserLinkTextNode)
+
+                viewUserLink.setAttribute('href', `user/${element._id}`)
+
+                user.appendChild(viewUserLink)
+
                 user.id = element._id
                 user.setAttribute("class", `user-component`)
                 userContent.appendChild(user)
