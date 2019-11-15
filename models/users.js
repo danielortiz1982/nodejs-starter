@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 
 const User = mongoose.model('User', {
+    
     firstName: {
         type: String,
         required: true,
@@ -57,20 +58,20 @@ const User = mongoose.model('User', {
     },
     addresses: [
         {
-            Address: {
+            primaryAddress: {
                 type: String,
                 require: true,
                 trim: true,
                 lowercase: true,
                 minlength: 3
             },
-            City: {
+            primaryCity: {
                 type: String,
                 require: true,
                 trim: true,
                 minlength: 2
             },
-            State: {
+            primaryState: {
                 type: String,
                 uppercase: true,
                 maxlength: 2,
@@ -78,51 +79,65 @@ const User = mongoose.model('User', {
                 trim: true,
                 require: true
             },
-            PostalCode: {
+            primaryPostalCode: {
                 type: Number,
                 maxlength: 5,
                 minlength: 5,
                 trim: true,
                 require: true
             },
-            AddressType: {
+            primaryAddressType: {
                 type: String,
                 require: true,
                 trim: true
             }
         },
         {
-            Address: {
+            secondaryAddress: {
                 type: String,
                 trim: true,
                 lowercase: true,
                 minlength: 3
             },
-            City: {
+            secondaryCity: {
                 type: String,
                 trim: true,
                 minlength: 2
             },
-            State: {
+            secondaryState: {
                 type: String,
                 uppercase: true,
                 maxlength: 2,
                 minlength: 2,
                 trim: true
             },
-            PostalCode: {
+            secondaryPostalCode: {
                 type: Number,
                 maxlength: 5,
                 minlength: 5,
                 trim: true
             },
-            AddressType: {
+            secondaryAddressType: {
                 type: String,
                 require: true,
                 trim: true
             }
         }
     ],
+    userLocation: {
+        userLatitude: {
+            type: String,
+            default: ""
+        },
+        userLongitude: {
+            type: String,
+            default: ""
+        }
+    },
+    userAgent: {
+        type: String,
+        default: ""
+    },
     avatarImage: {
         type: String,
         trim: true

@@ -81,6 +81,13 @@ button{
     transition: 1s;
     opacity: 0;
 }
+.user-component{
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
 .form-component{
     margin: 0 auto;
     width: 90%;

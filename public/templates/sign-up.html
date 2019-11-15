@@ -58,8 +58,28 @@
                             </div>
 
                             <div class="form-component">
-                                    <button id="userSent">Add User</button>
-                                    <p id="message"></p>
+                                <label>address</label>
+                                <p><input placeholder="Address" type="primaryAddress" id="primaryAddress" name="primaryAddress"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>city</label>
+                                <p><input placeholder="City" type="primaryCity" id="primaryCity" name="primaryCity"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>state</label>
+                                <p><input placeholder="State" type="primaryState" id="primaryState" name="primaryState"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <label>zip code</label>
+                                <p><input placeholder="Zip Code" type="primaryPostalCode" id="primaryPostalCode" name="primaryPostalCode"></p>
+                            </div>
+
+                            <div class="form-component">
+                                <button id="userSent">Add User</button>
+                                <p id="message"></p>
                             </div>
                         </form>
                         
@@ -68,6 +88,11 @@
             </section>
         </main>
         <footer>
+                <p>Click the button to get your coordinates.</p>
+
+                <button onclick="getLocation()">Try It</button>
+                
+                <p id="demo"></p>
             <h5>Nodejs & MongoDB Starter</h5>
         </footer>
     </div>
@@ -84,6 +109,15 @@
             payload.phone = document.getElementById('phone').value
             payload.email = document.getElementById('email').value
             payload.password = document.getElementById('password').value
+            payload.addresses = [
+                {
+                    primaryAddress: document.getElementById('primaryAddress').value,
+                    primaryCity: document.getElementById('primaryCity').value,
+                    primaryState: document.getElementById('primaryState').value,
+                    primaryPostalCode: document.getElementById('primaryPostalCode').value
+                }
+            ]
+
             const url = '/api/v1/users/'
             const data = payload
             try {
