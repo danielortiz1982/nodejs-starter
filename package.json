@@ -1,6 +1,6 @@
 {
   "name": "nodejs-starter",
-  "version": "1.5.5",
+  "version": "2.0.0",
   "description": "Nodejs and MongoDB starter kit",
   "main": "server.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "url": "git+https://github.com/danielortiz1982/nodejs-starter.git"
   },
   "keywords": [
+    "JavaScript",
     "Nodejs",
     "Express",
     "MongoDB",
