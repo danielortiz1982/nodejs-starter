@@ -88,10 +88,6 @@
             </section>
         </main>
         <footer>
-                <p>Click the button to get your coordinates.</p>
-
-                <button onclick="getLocation()">Try It</button>
-                
                 <p id="demo"></p>
             <h5>Nodejs & MongoDB Starter</h5>
         </footer>
@@ -100,6 +96,26 @@
         const form = document.getElementById('sign-up-form')
         const payload = {}
         const btn = document.getElementById('userSent')
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(saveUserLocation);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        getUserLocation()
+
+        function saveUserLocation(position) {
+            payload.userLocation = {
+                userLatitude: position.coords.latitude,
+                userLongitude: position.coords.longitude
+            }
+            
+            x.innerHTML = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude;
+        }
         
         btn.addEventListener('click', async (e)=>{
             e.preventDefault()
@@ -117,6 +133,8 @@
                     primaryPostalCode: document.getElementById('primaryPostalCode').value
                 }
             ]
+            payload.userAgent = window.navigator.userAgent
+
 
             const url = '/api/v1/users/'
             const data = payload
